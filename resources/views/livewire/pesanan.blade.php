@@ -4,7 +4,7 @@
     </div>
 
     <div class="grid grid-cols-12 gap-4">
-        <div class="col-span-12 md:col-span-4 rounded-lg h-fit bg-[#303032] p-4">
+        <div class="col-span-12 rounded-lg h-fit bg-[#303032] p-4">
             <div class="flex items-center justify-between mb-4">
                 <p class="text-lg font-semibold">Tambah Penjual</p>
                 {{-- @if ($id_penjual)
@@ -18,12 +18,24 @@
                 </div>
             @endif
 
-            <form wire:submit="save" class="space-y-2">
-                <fieldset class="fieldset">
+            <form wire:submit="save" class="space-y-2 grid grid-cols-12 gap-2">
+                <fieldset class="fieldset col-span-12 md:col-span-4">
+                    <legend class="fieldset-legend">Penjual</legend>
+                    <select class="select w-full" wire:model="form.penjual_id">
+                        <option selected>Pilih penjual dari daftar</option>
+                        @foreach ($penjual as $item)
+                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                        @endforeach
+                    </select>
+                    @error('form.penjual_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                </fieldset>
+
+                <fieldset class="fieldset col-span-12 md:col-span-4">
                     <legend class="fieldset-legend">Nama</legend>
                     <input type="text" class="input w-full" placeholder="Type here" wire:model="form.nama" />
                 </fieldset>
-                <button class="btn" type="submit">Tambah</button>
+
+                <button class="btn col-span-12 w-fit" type="submit">Tambah</button>
             </form>
         </div>
 
