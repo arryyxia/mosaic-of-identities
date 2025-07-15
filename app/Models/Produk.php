@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Produk extends Model
 {
@@ -23,12 +24,8 @@ class Produk extends Model
     {
         return $this->belongsTo(Penjual::class, 'penjual_id');
     }
-    public function pesanan()
+    public function pesanan(): BelongsToMany
     {
-        return $this->hasMany(Pesanan::class, 'produk_id');
+        return $this->belongsToMany(Pesanan::class);
     }
-    public function pesananProduk()
-    {
-        return $this->hasMany(PesananProduk::class, 'produk_id');
-    }
-}
+}   

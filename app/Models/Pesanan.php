@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Pesanan extends Model
 {
@@ -16,9 +17,9 @@ class Pesanan extends Model
     protected $casts = [
         'total_harga' => 'decimal:2',
     ];
-    public function produk()
+    public function produk(): BelongsToMany
     {
-        return $this->belongsTo(Produk::class, 'produk_id');
+        return $this->belongsToMany(Produk::class);
     }
     public function penjual()
     {
