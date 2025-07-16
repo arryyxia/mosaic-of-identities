@@ -12,10 +12,13 @@ class Pesanan extends Model
         'produk_id',
         'jumlah',
         'total_harga',
-        'status',
+        'bayar',
+        'kembalian',
     ];
     protected $casts = [
-        'total_harga' => 'decimal:2',
+        'total_harga' => 'integer',
+        'bayar' => 'integer',
+        'kembalian' => 'integer',
     ];
     public function produk(): BelongsToMany
     {

@@ -3,7 +3,7 @@
         <h1 class="text-2xl font-bold mb-4">Produk</h1>
     </div>
 
-    <div class="grid grid-cols-12 gap-4">
+    <form wire:submit.prevent="save" class="grid grid-cols-12 gap-4">
         <div class="col-span-12 md:col-span-5 rounded-lg h-fit bg-[#303032] p-4">
             <div class="flex items-center justify-between mb-4">
                 <p class="text-lg font-semibold">Tambah Produk</p>
@@ -18,7 +18,7 @@
                 </div>
             @endif
 
-            <form wire:submit.prevent="save" class="grid grid-cols-12 gap-2">
+            <div class="grid grid-cols-12 gap-2">
                 <fieldset class="fieldset col-span-12 md:col-span-4">
                     <legend class="fieldset-legend">Penjual</legend>
                     <select class="select w-full" wire:model="form.penjual_id">
@@ -67,14 +67,6 @@
                 <button class="btn col-span-12" wire:click.prevent="hitungJatah">Hitung Jatah Otomatis</button>
 
                 <fieldset class="fieldset col-span-12 md:col-span-6">
-                    <legend class="fieldset-legend">Jatah PUSDIS</legend>
-                    <label class="w-full input">
-                        Rp
-                        <input type="text" class="w-full" placeholder="000" readonly wire:model="form.jatah_pusdis" />
-                    </label>
-                </fieldset>
-                
-                <fieldset class="fieldset col-span-12 md:col-span-6">
                     <legend class="fieldset-legend">Jatah Penjual</legend>
                     <label class="w-full input">
                         Rp
@@ -82,8 +74,16 @@
                     </label>
                 </fieldset>
 
+                <fieldset class="fieldset col-span-12 md:col-span-6">
+                    <legend class="fieldset-legend">Jatah PUSDIS</legend>
+                    <label class="w-full input">
+                        Rp
+                        <input type="text" class="w-full" placeholder="000" readonly wire:model="form.jatah_pusdis" />
+                    </label>
+                </fieldset>
+
                 <button class="btn col-span-12 w-fit" type="submit">Tambah</button>
-            </form>
+            </div>
         </div>
 
         <div class="col-span-12 md:col-span-7 rounded-lg bg-[#303032] p-4">
@@ -103,8 +103,8 @@
                             <th>Deskripsi</th>
                             <th>Harga</th>
                             <th>Value Pembagian</th>
-                            <th>Jatah PUSDIS</th>
                             <th>Jatah Penjual</th>
+                            <th>Jatah PUSDIS</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -118,8 +118,8 @@
                                 <td>
                                     {{ $item->pembagian === 'persen' ? $item->pembagian_value . '%' : 'Rp' . number_format($item->pembagian_value) }}
                                 </td>
-                                <td>{{ 'Rp' . number_format($item->jatah_pusdis) }}</td>
                                 <td>{{ 'Rp' . number_format($item->jatah_penjual) }}</td>
+                                <td>{{ 'Rp' . number_format($item->jatah_pusdis) }}</td>
                                 <td class="flex items-center gap-2">
                                     <a href="/produk/{{$item->id}}" wire:navigate class="btn">
                                         <flux:icon.pencil-square />
@@ -133,5 +133,5 @@
                 </table>
             </div>
         </div>
-    </div>
+    </form>
 </div>

@@ -17,7 +17,7 @@ class ProdukForm extends Form
     #[Validate('required', message: 'Deskripsi produk harus diisi')]
     public $deskripsi;
 
-    #[Validate('required|numeric|min:1', message: 'Harga harus berupa angka dan minimal 1')]
+    #[Validate('required|numeric', message: 'Harga harus berupa angka dan minimal 1')]
     public $harga;
 
     #[Validate('required|in:persen,fixed', message: 'Tipe pembagian harus dipilih')]
