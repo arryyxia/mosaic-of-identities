@@ -22,9 +22,9 @@
             <span class="dock-label">Penjual</span>
         </a>
 
-        <a href="/pesanan" wire:navigate class="{{ request()->is('pesanan*') ? 'dock-active' : '' }}">
+        <a href="/pemesanan" wire:navigate class="{{ request()->is('pemesanan*') ? 'dock-active' : '' }}">
             <flux:icon.banknotes />
-            <span class="dock-label">Pesanan</span>
+            <span class="dock-label">Pemesanan</span>
         </a>
 
         <a href="/produk" wire:navigate class="{{ request()->is('produk*') ? 'dock-active' : '' }}">

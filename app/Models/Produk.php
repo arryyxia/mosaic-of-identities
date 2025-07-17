@@ -20,12 +20,23 @@ class Produk extends Model
         'jatah_penjual',
     ];
 
+    /*-------------------------------------
+    |  RELASI
+    |------------------------------------*/
+
     public function penjual()
     {
         return $this->belongsTo(Penjual::class, 'penjual_id');
     }
-    public function pesanan(): BelongsToMany
+
+    /**
+     * Relasi many‑to‑many ke pemesanan dengan tabel pivot
+     * 'pemesanan_produk' + kolom tambahan 'jumlah'.
+     */
+    public function pemesanan(): BelongsToMany
     {
-        return $this->belongsToMany(Pesanan::class);
+        return $this->belongsToMany(Pemesanan::class, 'pemesanan_produk')
+            ->withPivot('jumlah')   // akses $produk->pivot->jumlah
+            ->withTimestamps();
     }
-}   
+}

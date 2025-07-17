@@ -17,8 +17,8 @@ class Penjual extends Model
         return $this->hasMany(Produk::class, 'penjual_id');
     }
 
-    public function pesanan()
+    public function pemesanan()
     {
-        return $this->hasManyThrough(Pesanan::class, Produk::class, 'penjual_id', 'produk_id', 'id', 'id');
+        return $this->hasManyThrough(Pemesanan::class, Produk::class, 'penjual_id', 'produk_id', 'id', 'id');
     }
 }
