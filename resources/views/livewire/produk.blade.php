@@ -4,7 +4,7 @@
     </div>
 
     <form wire:submit.prevent="save" class="grid grid-cols-12 gap-4">
-        <div class="col-span-12 md:col-span-5 rounded-lg h-fit bg-[#303032] p-4">
+        <div class="col-span-12 lg:col-span-5 rounded-lg h-fit bg-[#303032] p-4">
             <div class="flex items-center justify-between mb-4">
                 <p class="text-lg font-semibold">Tambah Produk</p>
                 @if ($id)
@@ -43,14 +43,32 @@
                 </fieldset>
 
                 <fieldset class="fieldset col-span-12 md:col-span-4">
-                    <legend class="fieldset-legend">Harga Produk</legend>
-                    <input type="number" class="input w-full" placeholder="Tuliskan harga produk" wire:model="form.harga" />
+                    <legend class="fieldset-legend">Harga</legend>
+                    <label class="w-full input relative"
+                        x-data="{
+                            shown: '',
+                            init() {
+                                this.shown = $wire.form.harga ? Number($wire.form.harga).toLocaleString('id-ID') : '';
+                                this.$watch('$wire.form.harga', v => {
+                                    this.shown = v ? Number(v).toLocaleString('id-ID') : '';
+                                });
+                            },
+                            format(e) {
+                                const raw = e.target.value.replace(/[^0-9]/g,'');
+                                this.$wire.set('form.harga', raw);
+                                this.shown = raw ? Number(raw).toLocaleString('id-ID') : '';
+                            }
+                        }">
+                        Rp
+                        <input type="text" class="w-full bg-transparent pr-2" placeholder="000"
+                            x-model="shown" x-on:input.debounce.300ms="format($event)" />
+                    </label>
                     @error('form.harga') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                </fieldset>                
+                </fieldset>
 
                 <fieldset class="fieldset col-span-12 md:col-span-4">
                     <legend class="fieldset-legend">Tipe Pembagian</legend>
-                    <select class="select w-full" wire:model="form.pembagian">
+                    <select class="select w-full" wire:model.live.debounce.200ms="form.pembagian">
                         <option selected>Pilih tipe pembagian hasil</option>
                         <option value="persen">Persen</option>
                         <option value="fixed">Fixed</option>
@@ -60,17 +78,16 @@
 
                 <fieldset class="fieldset col-span-12 md:col-span-4">
                     <legend class="fieldset-legend">Value Pembagian</legend>
-                    <input type="number" class="input w-full" placeholder="10 untuk Persen atau 10000 untuk Fixed" wire:model="form.pembagian_value" />
+                    <input type="number" class="input w-full" placeholder="10 untuk Persen atau 10000 untuk Fixed" wire:model.live.debounce.200ms="form.pembagian_value" />
                     @error('form.pembagian_value') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </fieldset>
 
-                <button class="btn col-span-12" wire:click.prevent="hitungJatah">Hitung Jatah Otomatis</button>
-
+                {{-- <button class="btn col-span-12" wire:click.prevent="hitungJatah">Hitung Jatah Otomatis</button> --}}
                 <fieldset class="fieldset col-span-12 md:col-span-6">
                     <legend class="fieldset-legend">Jatah Penjual</legend>
                     <label class="w-full input">
                         Rp
-                        <input type="text" class="w-full" placeholder="000" readonly wire:model="form.jatah_penjual" />
+                        <input type="text" class="w-full" placeholder="000" readonly value="{{ number_format($form->jatah_penjual) }}" />
                     </label>
                 </fieldset>
 
@@ -78,7 +95,7 @@
                     <legend class="fieldset-legend">Jatah PUSDIS</legend>
                     <label class="w-full input">
                         Rp
-                        <input type="text" class="w-full" placeholder="000" readonly wire:model="form.jatah_pusdis" />
+                        <input type="text" class="w-full" placeholder="000" readonly value="{{ number_format($form->jatah_pusdis) }}" />
                     </label>
                 </fieldset>
 
@@ -86,7 +103,7 @@
             </div>
         </div>
 
-        <div class="col-span-12 md:col-span-7 rounded-lg bg-[#303032] p-4">
+        <div class="col-span-12 lg:col-span-7 rounded-lg bg-[#303032] p-4">
             <p class="text-lg font-semibold mb-4">Daftar Produk</p>
             @if (session()->has('message'))
                 <div class="text-red-500 text-sm mb-2">

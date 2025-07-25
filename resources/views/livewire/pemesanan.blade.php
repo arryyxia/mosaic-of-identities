@@ -1,13 +1,28 @@
 <div>
-    <div>
-        <h1 class="text-2xl font-bold mb-4">Produk</h1>
+    <div class="flex items-center justify-between mb-4">
+        <h1 class="text-2xl font-bold mb-4">Pemesanan</h1>
+        <a href="/riwayat-pemesanan" class="btn">Riwayat Pemesanan</a>
+    </div>
+
+    <div class="flex items-center justify-between mb-4">
+
+        <label class="input">
+            <input type="text"
+                class="w-full bg-transparent"
+                wire:model="search"
+                placeholder="Search produk...">
+        </label>
+
+        <div>
+            <button class="btn" wire:click="loadProduk">Search</button>
+            <button class="btn" wire:click="resetProduk">Reset</button>
+        </div>
     </div>
 
     <form wire:submit="save" class="space-y-2 grid grid-cols-12 gap-4">
-        <div class="col-span-4 rounded-lg h-fit bg-[#303032] p-4">
-            <div class="flex items-center justify-between mb-4">
-                <p class="text-lg font-semibold">Jumlah Produk</p>
-            </div>
+        <div class="col-span-12 lg:col-span-4 rounded-lg h-fit bg-[#303032] p-4 max-h-[80vh] overflow-y-auto">
+            <p class="text-lg font-semibold mb-4">Jumlah Produk</p>
+
 
             @if (session()->has('success'))
                 <div class="text-green-500 text-sm mb-2">
@@ -29,7 +44,7 @@
             @foreach ($produk as $item)
                 <div class="col-span-12 grid grid-cols-12 bg-zinc-700 p-3 rounded-md items-center justify-between mb-2">
                     <div class="col-span-8 grid grid-cols-12 gap-2 w-">
-                        <p class="font-semibold col-span-12">{{ $item->nama }}</p>
+                        <p class="font-semibold col-span-12">{{ $item->nama }} <span class="font-normal">- {{ $item->penjual->nama }}</span></p>
                         <p class="col-span-12 text-sm text-gray-300">Harga : Rp. {{ number_format($item->harga) }}</p>
                         <p class="col-span-6 text-sm text-gray-300">J. Penjual: Rp. {{ number_format($item->jatah_penjual) }}</p>
                         <p class="col-span-6 text-sm text-gray-300">J. PUSDIS : Rp. {{ number_format($item->jatah_pusdis) }}</p>
@@ -43,7 +58,7 @@
 
         </div>
 
-        <div class="col-span-8 rounded-lg h-fit bg-[#303032] p-4">
+        <div class="col-span-12 lg:col-span-8 rounded-lg h-fit bg-[#303032] p-4">
             <div class="flex items-center justify-between mb-4">
                 <p class="text-lg font-semibold">Daftar Pemesanan</p>
             </div>

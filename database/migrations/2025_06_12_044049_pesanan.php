@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('pemesanan', function (Blueprint $table) {
             $table->id();
-            $table->integer('total_harga')->default(0);
-            $table->integer('bayar')->default(0);
-            $table->integer('kembalian')->default(0);
+            $table->integer('total_harga');
+            $table->integer('bayar');
+            $table->integer('jatah_penjual');
+            $table->integer('jatah_pusdis');
+            $table->integer('kembalian');
             $table->timestamps();
         });
     }

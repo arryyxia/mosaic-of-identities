@@ -112,6 +112,8 @@ class PemesananForm extends Form
             $pemesanan = Pemesanan::updateOrCreate(
                 ['id' => $id],
                 [
+                    'jatah_pusdis' => $this->jatah_pusdis,
+                    'jatah_penjual' => $this->jatah_penjual,
                     'total_harga' => $this->total_harga,
                     'bayar'       => $this->bayar,
                     'kembalian'   => $this->kembalian,

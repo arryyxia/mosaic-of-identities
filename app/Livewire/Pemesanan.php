@@ -12,6 +12,7 @@ class Pemesanan extends Component
 {
     public PemesananForm $form;
     public $produk;
+    public $search = '';
 
     public function mount()
     {
@@ -47,6 +48,18 @@ class Pemesanan extends Component
         // kembalian selalu pakai total terbaru
         $bayar = (int) $this->form->bayar;
         $this->form->kembalian = max(0, $bayar - $totalHarga);
+    }
+
+    public function loadProduk()
+    {
+        $this->produk = Produk::when($this->search, function ($query) {
+            $query->where('nama', 'like', '%' . $this->search . '%');
+        })->get();
+    }
+
+    public function resetProduk()
+    {
+        $this->produk = Produk::all();
     }
 
     public function save()

@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div class="p-4 w-full overflow-hidden">
+    <div class="p-4 w-full pb-20">
         {{ $slot }}
     </div>
 

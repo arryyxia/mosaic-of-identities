@@ -24,6 +24,17 @@ class Produk extends Component
         session()->flash('message', 'Produk telah dihapus.');
     }
 
+    public function updated($name, $value)
+    {
+        if (in_array($name, [
+            'form.harga',
+            'form.pembagian',
+            'form.pembagian_value',
+        ])) {
+            $this->hitungJatah();
+        }
+    }
+
     public function mount($id = null)
     {
         $this->id = $id;

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Pemesanan extends Model
 {
     protected $table = 'pemesanan';          // pakai nama tabel di migration
-    protected $fillable = ['total_harga', 'bayar', 'kembalian'];
+    protected $fillable = ['jatah_penjual', 'jatah_pusdis', 'total_harga', 'bayar', 'kembalian'];
 
     public function produk(): BelongsToMany
     {
